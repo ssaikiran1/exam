@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataTables Example with JSON Data</title>
+
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+<style>
+body {
+	background-color: #FFE4B5;
+}
+
+
+/* Custom CSS for the form */
+form {
+	text-align: center;
+	margin-top: 20px;
+}
+
+label {
+	font-weight: bold;
+}
+
+input[type="text"], input[type="date"], input[type="number"] {
+	width: 30%;
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+
+input[type="button"], input[type="reset"] {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+}
+</style>
+
+
+</head>
+
+<body>
+	<center>
+		<form onsubmit="return false">
+			<label color="">First Name: </label><input type="text" id="fname">
+			<label>Last Name: </label><input type="text" id="lname"></br>
+			</br> <label>D.O.B: </label><input type="date" id="dob"> <label>Address:
+			</label><input type="text" id="add"></br>
+			</br> <label>Gender: </label><input type="text" id="gender"> <label>Aadhar:
+			</label><input type="number" id="aad"></br>
+			</br> <input type="reset" id="sub" value="submit"> 
+		</form>
+
+
+		<script>
+			$(document).ready(function() {
+				$('#sub').click(function() {
+					var fn = $('#fname').val();
+					var ln = $('#lname').val();
+					var dob = $('#dob').val();
+					var add = $('#add').val();
+					var gen = $('#gender').val();
+					var aadh = $('#aad').val();
+
+					var load = {
+						firstName : fn,
+						lastName : ln,
+						dateOfBirth : dob,
+						address : add,
+						gender : gen,
+						aadharNumber : aadh,
+					};
+					$.ajax({
+						url : '/adduser',
+						type : 'post',
+						data : JSON.stringify(load),
+						contentType : 'application/json',
+						success : function(response) {
+							window.location.href="index.html";
+						}
+					});
+				});
+			});
+		</script>
+	</center>
+</body>
+
+</html>
+

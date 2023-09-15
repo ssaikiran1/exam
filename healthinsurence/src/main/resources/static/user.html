@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+
+<!-- DataTables JS -->
+<script
+	src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+<!-- jQuery Form Plugin -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+<style>
+body {
+	background-color: #FFE4B5;
+}
+
+/* Custom CSS for the table */
+#dataTable {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#dataTable td, #dataTable th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#dataTable tr:nth-child(even) {
+	background-color: cream; /* Change the row color to cream */
+}
+
+#dataTable tr:hover {
+	background-color: #ddd;
+}
+
+#dataTable th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: gold;
+	color: black;
+}
+
+input[type="button"], input[type="reset"] {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+}
+</style>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<input type="button" id="getall" value="get all packages">
+
+	<table id="dataTable" class="display" style="width: 100%" border=1>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>TITLE</th>
+				<th>DESCRIPTION</th>
+				<th>STATUS</th>
+				<th>INSURENCE RANGE START</th>
+				<th>INSURENCE RANGE END</th>
+				<th>INSURENCE AGELIMIT START</th>
+				<th>INSURENCE AGELIMIT END</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- JSON data will be inserted here -->
+		</tbody>
+	</table>
+
+	<script>
+		$(document).ready(function() {
+			$('#getall').click(function() {
+				$.ajax({
+					url : '/allpacks',
+					type : 'get',
+					data : 'json',
+					success : function(response) {
+						console.log(response[0]);
+						$('#dataTable').DataTable({
+							data : response,
+							columns : [ 
+								{data : 'insp_id'}, 
+								{data : 'insp_title'}, 
+								{
+								data : 'insp_des'
+							}, {
+								data : 'insp_status'
+							}, {
+								data : 'insp_range_start'
+							}, {
+								data : 'insp_range_end'
+							}, {
+								data : 'insp_agelimit_start'
+							}, {
+								data : 'insp_agelimit_end'
+							}, ]
+						});
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>

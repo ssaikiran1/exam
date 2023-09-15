@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFE4B5;
+            display: flex;
+            justify-content: center; /* Horizontally center the form */
+            align-items: center; /* Vertically center the form */
+            height: 100vh; /* Set the viewport height */
+        }
+
+        .form-container {
+            background-color: #DCDCDC;
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 40%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        input[type="reset"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        input[type="reset"]:hover {
+            background-color: #0056b3;
+        }
+
+        center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form>
+            <center>
+                <label>USER NAME:</label>
+                <input type="text" id="username">
+                <br><br>
+                <label>USER PASSWORD:</label>
+                <input type="password" id="userpass">
+                <br><br>
+                <label>ADMIN</label>
+                <input type="radio" name="type" value="adm" id="admin">
+                <label>USER</label>
+                <input type="radio" name="type" value="usr" id="user">
+                <br><br>
+                <input type="reset" value="Register" id="reg">
+                <input type="button" value="login" id="login">
+            </center>
+        </form>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#reg').click(function() {
+                var un = $('#username').val();
+                var up = $('#userpass').val();
+                var u = $("input[name='type']:checked").val();
+
+                var load = {
+                    user_name : un,
+                    user_pwd : up,
+                    user_type : u
+                };
+                $.ajax({
+                    url : '/register',
+                    type : 'post',
+                    data : JSON.stringify(load),
+                    contentType : 'application/json',
+                    success : function() {
+                        window.location.href = "registration.html";
+                    }
+                });
+            });
+        });
+        
+        $(document).ready(function(){
+        	$('#login').click(function(){
+        		window.location.href="user.html";
+        	});
+        });
+    </script>
+</body>
+</html>
